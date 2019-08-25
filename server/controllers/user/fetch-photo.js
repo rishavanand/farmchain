@@ -14,7 +14,7 @@ var login = async (req, res, next) => {
 
         let [photoPath, imageType] = await lib.user.fetch.photo(userDetails);
         if(!photoPath){
-            photoPath = '../logo.png';
+            photoPath = './logo.png';
             imageType = 'image/png';
 
         }

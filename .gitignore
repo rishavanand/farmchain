@@ -2,4 +2,4 @@ server/node_modules
 server/npm-debug.log
 server/config/config.json
 mongodb_data
-user_pics
+server/user_pics

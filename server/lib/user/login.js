@@ -44,7 +44,7 @@ var login = async (userDetails) => {
             mobileNumber: user.mobileNumber,
             userType: user.userType
         }, secret, {
-            expiresIn: '1h'
+            expiresIn: '24h'
         }, (err, token) => {
             if (err) return reject(err);
             return resolve(token);
