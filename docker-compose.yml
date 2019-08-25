@@ -1,19 +1,15 @@
 version: "3.7"
 services:
   api:
-    image: "node:10"
+    image: "rishavanand/farmchain:latest"
     container_name: "farmchain-api"
-    user: "node"
     restart: always
-    working_dir: "/home/node/app"
+    user: "node"
     environment:
-      - NODE_PORT=3000
-      - MONGO_HOST=mongo
-    volumes:
-      - ./server:/home/node/app
+     - NODE_PORT=3000
+     - MONGO_HOST=mongo
     ports: 
       - "3000:3000"
-    command: "npm start"
     depends_on:
       - mongo
   mongo:

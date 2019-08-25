@@ -2,22 +2,23 @@
 
 var lib = require('../../lib');
 
-/* Controller to login user */
+/* Controller to get user profile */
 var login = async (req, res, next) => {
 
     try {
+
+        let decoded = req.decoded;
         
         let userDetails = {
-            mobileNumber: req.body.mobileNumber,
-            password: req.body.password
+            mobileNumber: decoded.mobileNumber
         };
 
-        let token = await lib.user.login(userDetails);
+        let profile = await lib.user.fetch.profile(userDetails);
 
         return res.json({
             success: true,
             payload: {
-                token: token
+                profile: profile
             }
         });
 

@@ -2,5 +2,6 @@
 
 module.exports = {
     user: require('./user'),
-    otp: require('./otp')
+    otp: require('./otp'),
+    twilio: require('./twilio')
 }

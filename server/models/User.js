@@ -39,9 +39,31 @@ var schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    farmLocation: {
+    photoPath: {
+        type: String
+    },
+    photoName: {
+        type: String
+    },
+    photoMimeType: {
+        type: String
+    },
+    farmCity: {
+        type: String
+    },
+    farmState: {
+        type: String
+    },
+    shopCity: {
+        type: String
+    },
+    shopState: {
+        type: String
+    },
+    address: {
         type: String
     }
+
 });
 
 var User = mongoose.model('User', schema);
