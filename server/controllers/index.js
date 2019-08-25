@@ -2,5 +2,6 @@
 
 module.exports = {
     home: require('./home'),
-    users: require('./users')
+    user: require('./user'),
+    otp: require('./otp')
 }

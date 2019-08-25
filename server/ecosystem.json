@@ -4,7 +4,6 @@
         "name": "farmchain-api",
         "script": "app.js",
         "watch": true,
-        // "ignore_watch": ["api/send/temp-files", "api/external/temp-files", "admin/public", "api/record/temp-files", "api/aws/keys"],
         "log_date_format" : "YYYY-MM-DD HH:mm Z"
     }]
 }

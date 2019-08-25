@@ -1,0 +1,8 @@
+{
+	
+    "jwtSecret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "twilioMobileNumber": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "twilioSid": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "twilioAuthToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+}
