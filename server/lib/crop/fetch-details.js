@@ -26,7 +26,6 @@ var fetchDetails = async (cropDetails) => {
         var crop = await Crop.find({
             owner: mobileNumber,
         }, {
-            _id: 0,
             __v: 0
         }).exec()
 
