@@ -1,22 +1,25 @@
 'use strict';
 
+/* eslint-disable max-statements */
+
 var lib = require('../../lib');
 var path = require('path');
 
-/* Controller to get user photo */
+/* Controller to get crop photo */
 var fetchPhoto = async (req, res, next) => {
 
     try {
+        let cropId = req.params.cropId;
 
-        let userDetails = {
-            mobileNumber: req.decoded.mobileNumber
+        let cropDetails = {
+            mobileNumber: req.decoded.mobileNumber,
+            cropId: cropId
         };
 
-        let [photoPath, imageType] = await lib.user.fetch.photo(userDetails);
+        let [photoPath, imageType] = await lib.crop.fetch.photo(cropDetails);
         if(!photoPath){
             photoPath = './logo.png';
             imageType = 'image/png';
-
         }
 
         res.set('Content-Type', imageType);

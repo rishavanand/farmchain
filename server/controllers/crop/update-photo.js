@@ -2,7 +2,7 @@
 
 var lib = require('../../lib');
 
-/* Controller to update user photo */
+/* Controller to update crop photo */
 var updatePhoto = async (req, res, next) => {
 
     try {
@@ -11,15 +11,17 @@ var updatePhoto = async (req, res, next) => {
         let photoPath = req.file.path;
         let photoName = req.file.filename;
         let photoMimeType = req.file.mimetype; 
+        let cropId = req.params.cropId;
 
-        let userDetails = {
+        let cropDetails = {
+            cropId: cropId,
             mobileNumber: decoded.mobileNumber,
             photoPath: photoPath,
             photoName: photoName,
             photoMimeType: photoMimeType
         };
         
-        await lib.user.update.photo(userDetails);
+        await lib.crop.update.photo(cropDetails);
 
         return res.json({
             success: true

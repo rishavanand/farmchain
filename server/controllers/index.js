@@ -3,5 +3,6 @@
 module.exports = {
     home: require('./home'),
     user: require('./user'),
-    otp: require('./otp')
+    otp: require('./otp'),
+    crop: require('./crop')
 }

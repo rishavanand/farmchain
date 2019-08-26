@@ -4,6 +4,7 @@
         "name": "farmchain-api",
         "script": "app.js",
         "watch": true,
+        "ignore_watch" : ["node_modules", "pics"],
         "log_date_format" : "YYYY-MM-DD HH:mm Z"
     }]
 }

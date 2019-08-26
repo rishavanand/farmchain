@@ -5,7 +5,7 @@ var middleware = require('../middleware');
 var multer = require('multer');
 
 const upload = multer({
-    dest: "./user_pics"
+    dest: "./pics"
 });
 
 router.post('/login', controllers.user.login);

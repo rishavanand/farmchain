@@ -3,14 +3,14 @@
 var jwt = require('jsonwebtoken');
 var config = require('../config/config.json');
 
-/* Allow any user who is logged in */
+/* 1st authorization: Allow any user who is logged in */
 var all = async (req, res, next) => {
 
     try {
-
+        
         let token = req.headers['x-access-token'] || req.headers['authorization'];
         if (token) {
-            
+
             if (token.indexOf('Bearer ') == 0) {
                 // Remove Bearer from string
                 token = token.slice(7, token.length);
@@ -34,6 +34,21 @@ var all = async (req, res, next) => {
 
 }
 
+/* 2nd Authorization: Allow only farmers */
+var farmer = (req, res, next) => {
+
+    let decoded = req.decoded;
+    let userType = decoded.userType;
+
+    if (userType === 'farmer') {
+        return next();
+    } else {
+        return next(new Error('Only farmers are authorized'));
+    }
+
+}
+
 module.exports = {
-    all: all
+    all: all,
+    farmer: farmer
 };

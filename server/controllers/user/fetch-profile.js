@@ -3,7 +3,7 @@
 var lib = require('../../lib');
 
 /* Controller to get user profile */
-var login = async (req, res, next) => {
+var fetchProfile = async (req, res, next) => {
 
     try {
 
@@ -28,4 +28,4 @@ var login = async (req, res, next) => {
 
 }
 
-module.exports = login;
+module.exports = fetchProfile;
