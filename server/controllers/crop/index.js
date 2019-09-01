@@ -9,5 +9,6 @@ module.exports = {
     fetch: {
         photo: require('./fetch-photo'),
         details: require('./fetch-details')
-    }
+    },
+    remove: require('./remove')
 }

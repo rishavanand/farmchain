@@ -17,6 +17,9 @@ router.get('/', middleware.authorize.all, middleware.authorize.farmer, controlle
 /* Route to get specific crop of a user */
 router.get('/:cropId', middleware.authorize.all, middleware.authorize.farmer, controllers.crop.fetch.details);
 
+/* Route to get specific crop of a user */
+router.post('/:cropId/delete', middleware.authorize.all, middleware.authorize.farmer, controllers.crop.remove);
+
 /* Route to get crop photo */
 router.get('/:cropId/photo', middleware.authorize.all, middleware.authorize.farmer, controllers.crop.fetch.photo);
 
