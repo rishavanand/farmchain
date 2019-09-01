@@ -11,5 +11,6 @@ module.exports = {
     fetch: {
         profile: require('./fetch-profile'),
         photo: require('./fetch-photo')
-    }
+    },
+    remove: require('./remove')
 }

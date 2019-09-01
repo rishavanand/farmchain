@@ -1,5 +1,6 @@
 server/node_modules
 server/npm-debug.log
+server/package-lock.json
 server/config/config.json
 mongodb_data
 server/pics
