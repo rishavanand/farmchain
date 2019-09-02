@@ -27,8 +27,6 @@ var register = async (userDetails) => {
         let otpCode = await otp.generate(userDetails);
 
         let user = new User({
-            firstName: userDetails.firstName,
-            lastName: userDetails.lastName,
             password: await hashPassword(userDetails.password),
             mobileNumber: userDetails.mobileNumber,
             otp: otpCode,

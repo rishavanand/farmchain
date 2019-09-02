@@ -8,7 +8,11 @@ module.exports = {
     },
     fetch: {
         photo: require('./fetch-photo'),
-        details: require('./fetch-details')
+        details: require('./fetch-details'),
+        names: require('./fetch-names'),
+        variety: require('./fetch-variety'),
+        grade: require('./fetch-grade'),
+        filtered: require('./fetch-filtered')
     },
     remove: require('./remove')
 };

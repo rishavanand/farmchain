@@ -42,7 +42,8 @@ var login = async (userDetails) => {
         
         jwt.sign({
             mobileNumber: user.mobileNumber,
-            userType: user.userType
+            userType: user.userType,
+            _id: user._id
         }, secret, {
             expiresIn: '24h'
         }, (err, token) => {

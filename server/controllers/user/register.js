@@ -9,8 +9,6 @@ var register = async (req, res, next) => {
         
         let userDetails = {
             mobileNumber: req.body.mobileNumber,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
             password: req.body.password,
             userType: req.body.userType
         };

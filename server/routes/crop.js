@@ -14,6 +14,9 @@ router.post('/', middleware.authorize.all, middleware.authorize.farmer, controll
 /* Route to get all crop details of a user */
 router.get('/', middleware.authorize.all, middleware.authorize.farmer, controllers.crop.fetch.details);
 
+/* Route to fetch crop names */
+router.get('/names', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.names);
+
 /* Route to get specific crop of a user */
 router.get('/:cropId', middleware.authorize.all, middleware.authorize.farmer, controllers.crop.fetch.details);
 
@@ -28,5 +31,14 @@ router.post('/:cropId/update/photo', upload.single("file"), middleware.authorize
 
 /* Route to update crop details */
 router.post('/:cropId/update/details', middleware.authorize.all, middleware.authorize.farmer, controllers.crop.update.details);
+
+/* Route to fetch crop variety */
+router.get('/:cropName/variety', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.variety);
+
+/* Route to fetch crop grade */
+router.get('/:cropName/:varietyName/grade', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.grade);
+
+/* Route to fetch filtered crops */
+router.get('/:cropName/:varietyName/:gradeName', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.filtered);
 
 module.exports = router;

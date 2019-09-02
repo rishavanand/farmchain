@@ -3,8 +3,8 @@
 var models = require('../../models');
 var mongoose = require('mongoose');
 
-/* Function to create new crop */
-var create = async (cropDetails) => {
+/* Function to buyCrop */
+var buyCrop = async (cropDetails) => {
 
     let Crop = models.Crop;
 
@@ -21,4 +21,4 @@ var create = async (cropDetails) => {
 
 }
 
-module.exports = create;
+module.exports = buyCrop;

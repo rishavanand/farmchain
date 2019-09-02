@@ -15,7 +15,8 @@ var create = async (req, res, next) => {
             price: req.body.price,
             grade: req.body.grade,
             variety: req.body.variety,
-            ownerMobileNumber: decoded.mobileNumber
+            ownerMobileNumber: decoded.mobileNumber,
+            _id: decoded._id
         };
 
         await lib.crop.create(cropDetails);

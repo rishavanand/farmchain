@@ -48,7 +48,22 @@ var farmer = (req, res, next) => {
 
 }
 
+/* 2nd Authorization: Allow only wholesalers */
+var wholesaler = (req, res, next) => {
+
+    let decoded = req.decoded;
+    let userType = decoded.userType;
+
+    if (userType === 'wholesaler') {
+        return next();
+    } else {
+        return next(new Error('Only wholesalers are authorized'));
+    }
+
+}
+
 module.exports = {
     all: all,
-    farmer: farmer
+    farmer: farmer,
+    wholesaler: wholesaler
 };

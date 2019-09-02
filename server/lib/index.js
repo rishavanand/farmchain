@@ -4,5 +4,6 @@ module.exports = {
     user: require('./user'),
     otp: require('./otp'),
     twilio: require('./twilio'),
-    crop: require('./crop')
+    crop: require('./crop'),
+    order: require('./order')
 }
