@@ -6,7 +6,8 @@ const mongoosePort = process.env.MONGO_HOST || "127.0.0.1";
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
-mongoose.connect(`mongodb://${mongoosePort}/farmchain`);
+//mongoose.connect(`mongodb://${mongoosePort}/farmchain`);
+mongoose.connect(`mongodb+srv://farmchain:ycoZ6CVCWpVut70m@cluster0-llvxe.mongodb.net/famrchain?retryWrites=true&w=majority`);
 
 var schema = new mongoose.Schema({
     mobileNumber: {
