@@ -23,7 +23,9 @@ var app = express();
 app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
@@ -37,7 +39,6 @@ app.use(function (req, res, next) {
 });
 
 // error handlers
-
 app.use(function (err, req, res, next) {
 	console.log(err);
 	res.status(err.status || 500);
@@ -47,21 +48,15 @@ app.use(function (err, req, res, next) {
 	});
 });
 
-app.set('port', process.env.NODE_PORT || 8000);
+process.on('unhandledRejection', (reason, promise) => {
+	console.log('Unhandled Rejection at:', reason.stack || reason)
+	// Recommended: send the information to sentry.io
+	// or whatever crash reporting service you use
+})
 
-// Get database access token
-// database.fetchToken()
-// 	.then(() => {
-// 		var server = app.listen(app.get('port'), function () {
-// 			debug('Express server listening on port ' + server.address().port);
-// 			console.log('API server started')
-// 		});
-// 	})
-// 	.catch((err) => {
-// 		console.log(err);
-// 	})
+app.set('port', global.gConfig.nodePort || 8000);
 
 app.listen(app.get('port'), function () {
 	debug('Express server listening on port ' + app.get('port'));
-	console.log('API server started')
+	console.log('API server started on port ' + app.get('port'))
 });

@@ -1,12 +1,12 @@
 'use strict';
 
 var mongoose = require('mongoose');
-const mongoosePort = process.env.MONGO_HOST || "127.0.0.1";
+const mongoUrl = global.gConfig.mongoUrl;
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
-mongoose.connect(`mongodb+srv://farmchain:ycoZ6CVCWpVut70m@cluster0-llvxe.mongodb.net/famrchain?retryWrites=true&w=majority`);
+mongoose.connect(mongoUrl);
 
 var schema = new mongoose.Schema({
     name: {
