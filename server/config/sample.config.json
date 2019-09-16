@@ -3,6 +3,8 @@
     "jwtSecret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "twilioMobileNumber": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     "twilioSid": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    "twilioAuthToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    "twilioAuthToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "mongoUrl": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "nodePort": "3000"
 
 }
