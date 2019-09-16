@@ -28,6 +28,9 @@ var login = async (userDetails) => {
         mobileNumber: userDetails.mobileNumber
     }).exec();
 
+    if(!user)
+        throw new Error('User not registered');
+
     let hash = user.password;
     let verified = user.verified;
 
