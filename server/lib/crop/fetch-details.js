@@ -4,18 +4,15 @@ var models = require('../../models');
 var mongoose = require('mongoose');
 
 /* Function to fetch crop details */
-var fetchDetails = async (cropDetails) => {
+var fetchDetails = async (user, crop) => {
 
     let Crop = models.Crop;
 
-    let mobileNumber = cropDetails.mobileNumber;
-    let cropId = cropDetails.cropId;
-
-    if(cropId){
+    if(crop.id){
 
         var crop = await Crop.findOne({
-            owner: mobileNumber,
-            _id: mongoose.Types.ObjectId(cropId)
+            owner: mongoose.Types.ObjectId(user._id),
+            _id: mongoose.Types.ObjectId(crop.id)
         }, {
             _id: 0,
             __v: 0
@@ -23,8 +20,9 @@ var fetchDetails = async (cropDetails) => {
 
     }else{
 
+        //var user = 
         var crop = await Crop.find({
-            owner: mobileNumber,
+            owner: mongoose.Types.ObjectId(user._id)
         }, {
             __v: 0
         }).exec()

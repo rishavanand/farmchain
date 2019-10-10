@@ -1,6 +1,7 @@
 'use strict';
 
 var jwt = require('jsonwebtoken');
+const models = require('../models');
 var config = require('../config/config.json');
 
 /* 1st authorization: Allow any user who is logged in */
@@ -8,7 +9,7 @@ var all = async (req, res, next) => {
 
     try {
         
-        let token = req.headers['x-access-token'] || req.headers['authorization'];
+        let token = req.headers['x-access-token'] || req.headers.authorization;
         if (token) {
 
             if (token.indexOf('Bearer ') == 0) {
@@ -16,11 +17,14 @@ var all = async (req, res, next) => {
                 token = token.slice(7, token.length);
             }
 
-            jwt.verify(token, config.jwtSecret, (err, decoded) => {
+            jwt.verify(token, config.jwtSecret, async (err, decoded) => {
                 if (err) {
                     return next(new Error('Invalid token'));
                 } else {
                     req.decoded = decoded;
+                    const mobileNumber = decoded.mobileNumber;
+                    const user = await models.User.findOne({mobileNumber: mobileNumber});
+                    req.user = user;
                     next();
                 }
             });

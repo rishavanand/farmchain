@@ -1,21 +1,20 @@
 'use strict';
 
-var lib = require('../../lib');
+const lib = require('../../lib');
 
 /* Controller to get crop profile */
 var fetchDetails = async (req, res, next) => {
 
     try {
 
-        let decoded = req.decoded;
-        let cropId = req.params.cropId;
-
-        let cropDetails = {
-            mobileNumber: decoded.mobileNumber,
-            cropId: cropId
+        const user = req.user;
+        const cropId = req.params.cropId;
+        
+        const crop = {
+            id: cropId
         };
 
-        let details = await lib.crop.fetch.details(cropDetails);
+        const details = await lib.crop.fetch.details(user, crop);
 
         return res.json({
             success: true,

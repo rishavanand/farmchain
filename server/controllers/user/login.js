@@ -11,7 +11,7 @@ var login = async (req, res, next) => {
             mobileNumber: req.body.mobileNumber,
             password: req.body.password
         };
-
+        
         let token = await lib.user.login(userDetails);
 
         return res.json({
