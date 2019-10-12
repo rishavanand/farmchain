@@ -7,17 +7,20 @@ var mongoose = require('mongoose');
 var fetchPhoto = async (cropDetails) => {
 
     let Crop = models.Crop;
-    let mobileNumber = cropDetails.mobileNumber;
+    let owner = cropDetails.owner;
 
     let crop = await Crop.findOne({
-        owner: mobileNumber,
+        owner: owner._id,
         _id: mongoose.Types.ObjectId(cropDetails.cropId)
     }, {
         photoPath: 1,
         photoMimeType: 1
     }).exec()
-    
-    return [crop.photoPath, crop.photoMimeType];
+
+    return [
+        crop.photoPath,
+        crop.photoMimeType
+    ];
 
 }
 

@@ -4,19 +4,19 @@ var models = require('../../models');
 var mongoose = require('mongoose');
 
 /* Function to update crop photo */
-var updatePhoto = async (userDetails) => {
+var updatePhoto = async (cropDetails) => {
     
     let Crop = models.Crop;
-    let mobileNumber = userDetails.mobileNumber;
-    let cropId = userDetails.cropId;
+    let owner = cropDetails.owner;
+    let cropId = cropDetails.cropId;
 
     await Crop.updateOne({
-        owner: mobileNumber,
-        _id: mongoose.Types.ObjectId (cropId)
+        owner: owner._id,
+        _id: mongoose.Types.ObjectId(cropId)
     }, {
-        photoPath: userDetails.photoPath,
-        photoName: userDetails.photoName,
-        photoMimeType: userDetails.photoMimeType
+        photoPath: cropDetails.photoPath,
+        photoName: cropDetails.photoName,
+        photoMimeType: cropDetails.photoMimeType
     }).exec();
 
 }

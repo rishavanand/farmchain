@@ -9,15 +9,19 @@ var path = require('path');
 var fetchPhoto = async (req, res, next) => {
 
     try {
-        let cropId = req.params.cropId;
+        const cropId = req.params.cropId;
+        const user = req.user;
 
         let cropDetails = {
-            mobileNumber: req.decoded.mobileNumber,
+            owner: user,
             cropId: cropId
         };
 
-        let [photoPath, imageType] = await lib.crop.fetch.photo(cropDetails);
-        if(!photoPath){
+        let [
+            photoPath,
+            imageType
+        ] = await lib.crop.fetch.photo(cropDetails);
+        if (!photoPath) {
             photoPath = './logo.png';
             imageType = 'image/png';
         }

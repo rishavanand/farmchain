@@ -26,7 +26,7 @@ var updateDetails = async (cropDetails) => {
     });
 
     await Crop.updateOne({
-        owner: mongoose.Types.ObjectId(owner),
+        owner: mongoose.Types.ObjectId(owner._id),
         _id: mongoose.Types.ObjectId(cropId)
     }, updatables).exec();
 

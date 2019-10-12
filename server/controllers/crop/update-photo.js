@@ -7,15 +7,15 @@ var updatePhoto = async (req, res, next) => {
 
     try {
         
-        let decoded = req.decoded;
-        let photoPath = req.file.path;
-        let photoName = req.file.filename;
-        let photoMimeType = req.file.mimetype; 
-        let cropId = req.params.cropId;
+        const photoPath = req.file.path;
+        const photoName = req.file.filename;
+        const photoMimeType = req.file.mimetype; 
+        const cropId = req.params.cropId;
+        const user = req.user;
 
         let cropDetails = {
+            owner: user,
             cropId: cropId,
-            mobileNumber: decoded.mobileNumber,
             photoPath: photoPath,
             photoName: photoName,
             photoMimeType: photoMimeType

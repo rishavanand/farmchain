@@ -11,7 +11,7 @@ var updateDetails = async (req, res, next) => {
         const cropId = req.params.cropId;
 
         let cropDetails = {
-            owner: user._id,
+            owner: user,
             name: req.body.name,
             price: req.body.price,
             quantity: req.body.quantity,
