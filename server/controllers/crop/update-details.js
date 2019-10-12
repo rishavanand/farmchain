@@ -7,11 +7,11 @@ var updateDetails = async (req, res, next) => {
 
     try {
 
-        let decoded = req.decoded;
-        let cropId = req.params.cropId;
+        const user = req.user;
+        const cropId = req.params.cropId;
 
         let cropDetails = {
-            mobileNumber: decoded.mobileNumber,
+            owner: user._id,
             name: req.body.name,
             price: req.body.price,
             quantity: req.body.quantity,

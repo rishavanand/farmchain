@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var updateDetails = async (cropDetails) => {
 
     let Crop = models.Crop;
-    let mobileNumber = cropDetails.mobileNumber;
+    let owner = cropDetails.owner;
     let cropId = cropDetails.cropId;
 
     let updatables = {
@@ -26,7 +26,7 @@ var updateDetails = async (cropDetails) => {
     });
 
     await Crop.updateOne({
-        owner: mobileNumber,
+        owner: mongoose.Types.ObjectId(owner),
         _id: mongoose.Types.ObjectId(cropId)
     }, updatables).exec();
 
