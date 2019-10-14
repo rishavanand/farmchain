@@ -61,6 +61,10 @@ var schema = new mongoose.Schema({
     },
     address: {
         type: String
+    },
+    walletBalance: {
+        type: Number,
+        default: 0
     }
 
 });

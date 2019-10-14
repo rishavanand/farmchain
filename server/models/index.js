@@ -2,5 +2,6 @@
 
 module.exports = {
     Crop: require('./Crop'),
-    User: require('./User')
+    User: require('./User'),
+    Order: require('./Order')
 };

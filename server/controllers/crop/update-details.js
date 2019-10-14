@@ -14,7 +14,6 @@ var updateDetails = async (req, res, next) => {
             owner: user,
             name: req.body.name,
             price: req.body.price,
-            quantity: req.body.quantity,
             variety: req.body.variety,
             grade: req.body.grade,
             cropId: cropId

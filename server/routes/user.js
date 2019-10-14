@@ -23,6 +23,9 @@ router.post('/otp/resend', controllers.otp.resend);
 /* Router for updating user profile */
 router.post('/update/profile', middleware.authorize.all, controllers.user.update.profile);
 
+/* Router for updating user profile */
+router.post('/update/balance', middleware.authorize.all, controllers.user.update.balance);
+
 /* Router for deleting user */
 router.post('/delete', middleware.authorize.all, controllers.user.remove);
 

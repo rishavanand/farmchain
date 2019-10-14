@@ -13,7 +13,6 @@ var updateDetails = async (cropDetails) => {
     let updatables = {
         name: cropDetails.name,
         price: cropDetails.price,
-        quantity: cropDetails.quantity,
         variety: cropDetails.variety,
         grade: cropDetails.grade
     };

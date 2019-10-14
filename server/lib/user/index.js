@@ -6,7 +6,8 @@ module.exports = {
     update: {
         profile: require('./update-profile'),
         password: require('./update-password'),
-        photo: require('./update-photo')
+        photo: require('./update-photo'),
+        balance: require('./update-balance')
     },
     fetch: {
         profile: require('./fetch-profile'),
