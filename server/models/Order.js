@@ -14,7 +14,7 @@ var schema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    cropId: {
+    crop: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Crop',
         required: true

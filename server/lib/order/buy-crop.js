@@ -70,7 +70,7 @@ var buyCrop = async (cropDetails) => {
 
     // Create order
     let order = new Order({
-        cropId: new mongoose.Types.ObjectId(cropDetails.id),
+        crop: new mongoose.Types.ObjectId(cropDetails.id),
         quantity: cropDetails.quantity,
         newPrice: cropDetails.newPrice,
         buyerId: new mongoose.Types.ObjectId(buyer._id),
