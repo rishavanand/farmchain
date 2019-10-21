@@ -3,5 +3,6 @@
 module.exports = {
     Crop: require('./Crop'),
     User: require('./User'),
-    Order: require('./Order')
+    Order: require('./Order'),
+    Stock: require('./Stock')
 };

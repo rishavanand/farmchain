@@ -9,14 +9,14 @@ var fetchList = async (user) => {
     let Order = models.Order;
 
     var orders = await Order.find({
-            buyerId: mongoose.Types.ObjectId(user._id)
+            buyer: mongoose.Types.ObjectId(user._id)
         }, {
             __v: 0
         }).populate({
-            path: 'crop',
+            path: 'stock',
             populate: {
                 path: 'owner',
-                select: '_id firstName lastName userType address farmCity farmState'
+                select: '_id firstName lastName userType address city state'
             }
         })
         .exec()

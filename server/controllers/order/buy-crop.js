@@ -12,13 +12,15 @@ var buyCrop = async (req, res, next) => {
         let quantity = req.body.quantity;
         let newPrice = req.body.newPrice;
         let user = req.user;
+        const resale = req.body.resale;
 
         let cropDetails = {
             mobileNumber: decoded.mobileNumber,
             id: cropId,
             quantity: quantity,
             newPrice: newPrice,
-            buyer: user
+            buyer: user,
+            resale: resale
         };
 
         await lib.order.buy.crop(cropDetails);

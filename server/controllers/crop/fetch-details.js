@@ -7,14 +7,13 @@ var fetchDetails = async (req, res, next) => {
 
     try {
 
-        const user = req.user;
         const cropId = req.params.cropId;
         
         const crop = {
             id: cropId
         };
 
-        const details = await lib.crop.fetch.details(user, crop);
+        const details = await lib.crop.fetch.details(crop);
 
         return res.json({
             success: true,

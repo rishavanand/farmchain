@@ -1,4 +1,4 @@
-'use strict';
+ 'use strict';
 
 /* eslint-disable max-statements */
 
@@ -27,7 +27,7 @@ var fetchPhoto = async (req, res, next) => {
         }
 
         res.set('Content-Type', imageType);
-        let absPath = path.join(__dirname, '/../../', photoPath);
+        let absPath = path.join(__dirname, '/../../pics/', photoPath);
         return res.sendfile(absPath);
 
 

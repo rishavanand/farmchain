@@ -5,5 +5,7 @@ module.exports = {
     otp: require('./otp'),
     twilio: require('./twilio'),
     crop: require('./crop'),
-    order: require('./order')
+    order: require('./order'),
+    stock: require('./stock'),
+    clear: require('./clear')
 }

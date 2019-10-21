@@ -6,11 +6,12 @@ var mongoose = require('mongoose');
 /* Function to fetch crop names */
 var fetchNames = async () => {
 
-    let Crop = models.Crop;
+    let Stock = models.Stock;
 
-    var crop = await Crop.find().distinct('name').exec();
+    var names = await Stock.find().distinct('details.name')
+        .exec();
 
-    return crop;
+    return names;
 
 }
 

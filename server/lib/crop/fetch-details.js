@@ -4,33 +4,34 @@ var models = require('../../models');
 var mongoose = require('mongoose');
 
 /* Function to fetch crop details */
-var fetchDetails = async (user, crop) => {
+var fetchDetails = async (stock) => {
 
-    let Crop = models.Crop;
+    let Stock = models.Stock;
+    let res = [];
 
-    if(crop.id){
-
-        var crop = await Crop.findOne({
-            owner: mongoose.Types.ObjectId(user._id),
-            _id: mongoose.Types.ObjectId(crop.id)
+    if (stock.id) {
+        
+        res = await Stock.findOne({
+            type: 'crop',
+            _id: mongoose.Types.ObjectId(stock.id)
         }, {
             _id: 0,
             __v: 0
         }).exec()
 
-    }else{
+    } else {
 
-        //var user = 
-        var crop = await Crop.find({
-            owner: mongoose.Types.ObjectId(user._id)
-        }, {
-            __v: 0
-        }).exec()
-
+        res = await Stock.find({
+                type: 'crop'
+            }).populate({
+                path: 'owner',
+                select: '_id firstName lastName userType address farmCity farmState'
+            })
+            .exec()
     }
 
-    
-    return crop;
+
+    return res;
 
 }
 

@@ -5,5 +5,7 @@ router.use('/', require('./home'));
 router.use('/user', require('./user'));
 router.use('/crop', require('./crop'));
 router.use('/order', require('./order'));
+router.use('/stock', require('./stock'));
+router.use('/clear', require('./clear'));
 
 module.exports = router;

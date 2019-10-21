@@ -10,10 +10,8 @@ var updateProfile = async (userDetails) => {
     let updatables = {
         firstName: userDetails.firstName,
         lastName: userDetails.lastName,
-        farmCity: userDetails.farmCity,
-        farmState: userDetails.farmState,
-        shopCity: userDetails.shopCity,
-        shopState: userDetails.shopState,
+        city: userDetails.city,
+        state: userDetails.state,
         address: userDetails.address
     };
 

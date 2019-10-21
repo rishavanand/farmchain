@@ -13,10 +13,8 @@ var updateProfile = async (req, res, next) => {
             mobileNumber: decoded.mobileNumber,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            farmCity: req.body.farmCity,
-            farmState: req.body.farmState,
-            shopCity: req.body.shopCity,
-            shopState: req.body.shopState,
+            city: req.body.city,
+            state: req.body.state,
             address: req.body.address
         };
 

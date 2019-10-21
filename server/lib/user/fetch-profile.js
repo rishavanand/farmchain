@@ -11,9 +11,7 @@ var fetchProfile = async (userDetails) => {
         mobileNumber: mobileNumber
     }, {
         password: 0,
-        _id: 0,
-        otp: 0,
-        __v: 0
+        otp: 0
     }).exec()
     
     return user;

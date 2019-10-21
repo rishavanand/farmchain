@@ -9,10 +9,10 @@ const upload = multer({
 });
 
 /* Route to create new crop */
-router.post('/', middleware.authorize.all, middleware.authorize.farmer, controllers.crop.create);
+router.post('/', upload.single("photo"), middleware.authorize.all, middleware.authorize.farmer, controllers.crop.create);
 
 /* Route to get all crop details of a user */
-router.get('/', middleware.authorize.all, middleware.authorize.farmer, controllers.crop.fetch.details);
+router.get('/', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.details);
 
 /* Route to fetch crop names */
 router.get('/names', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.names);

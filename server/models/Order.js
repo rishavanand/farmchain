@@ -9,14 +9,21 @@ mongoose.set('useCreateIndex', true);
 mongoose.connect(mongoUrl);
 
 var schema = new mongoose.Schema({
-    buyerId: {
+    buyer: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    crop: {
+    stock: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Crop',
+        ref: 'Stock',
+        required: true
+    },
+    initialStock: {
+        type: mongoose.Schema.Types.ObjectId
+    },
+    lastStockType: {
+        type: String,
         required: true
     },
     date: {
@@ -33,12 +40,23 @@ var schema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    newPrice: {
-        type: Number,
+    sellingPrice: {
+        type: Number
+    },
+    resale: {
+        type: Boolean,
         required: true
     },
-    cost: {
-        type: Number,
+    lastResale: {
+        type: Boolean,
+        required: true
+    },
+    imageName: {
+        type: String,
+        required: true
+    },
+    imageMimeType: {
+        type: String,
         required: true
     }
 });

@@ -5,5 +5,7 @@ module.exports = {
     user: require('./user'),
     otp: require('./otp'),
     crop: require('./crop'),
-    order: require('./order')
+    order: require('./order'),
+    stock: require('./stock'),
+    clear: require('./clear')
 }

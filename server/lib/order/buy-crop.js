@@ -6,37 +6,36 @@ var mongoose = require('mongoose');
 /* Function to check of crops are in stock */
 const checkStock = async (cropId, quantity) => {
 
-    let Crop = models.Crop;
-    var crop = await Crop.findOne({
+    let Stock = models.Stock;
+    var stock = await Stock.findOne({
         _id: mongoose.Types.ObjectId(cropId)
-    }, {
-        _id: 0,
-        __v: 0
-    }).exec()
+    }).exec();
 
-    if (!crop)
+    if (!stock)
         throw new Error('Crop not found');
 
-    if (crop.quantity < quantity)
+    if (stock.quantity < quantity)
         throw new Error('Insufficient quantity');
+
+    return stock;
 
 };
 
 /* Function to check if wholesaler has wallet balance */
 const reduceBalance = async (cropId, buyerId, quantity) => {
 
-    const Crop = models.Crop;
-    const crop = await Crop.findOne({
+    const Stock = models.Stock;
+    const stock = await Stock.findOne({
         _id: mongoose.Types.ObjectId(cropId)
     }, {
         _id: 0,
         __v: 0
     }).exec()
 
-    if (!crop)
+    if (!stock)
         throw new Error('Crop not found');
 
-    const cropPrice = crop.price;
+    const cropPrice = stock.sellingPrice;
     const totalAmount = cropPrice * quantity;
 
     // Get user
@@ -62,19 +61,38 @@ const reduceBalance = async (cropId, buyerId, quantity) => {
 var buyCrop = async (cropDetails) => {
 
     let Order = models.Order;
-    let Crop = models.Crop;
+    let Stock = models.Stock;
     let buyer = cropDetails.buyer;
+    const User = models.User;
 
-    await checkStock(cropDetails.id, cropDetails.quantity);
-    const totalAmount = await reduceBalance(cropDetails.id, buyer._id, cropDetails.quantity);
+    // Check if user has updated his profile
+    let userSearchResult = await User.findOne({
+        _id: new mongoose.Types.ObjectId(buyer.id)
+    }).exec();
+
+    if(!userSearchResult.address || !userSearchResult.city || !userSearchResult.state || !userSearchResult.firstName || !userSearchResult.lastName)
+        throw new Error('Profile not completed.');
+
+    const stock = await checkStock(cropDetails.id, cropDetails.quantity);
+    await reduceBalance(cropDetails.id, buyer._id, cropDetails.quantity);
+
+    if(stock.initialStock)
+        var initialStock = new mongoose.Types.ObjectId(order.initialStock)
+    else
+        var initialStock = new mongoose.Types.ObjectId(cropDetails.id)
 
     // Create order
     let order = new Order({
-        crop: new mongoose.Types.ObjectId(cropDetails.id),
+        stock: new mongoose.Types.ObjectId(cropDetails.id),
         quantity: cropDetails.quantity,
-        newPrice: cropDetails.newPrice,
-        buyerId: new mongoose.Types.ObjectId(buyer._id),
-        cost: totalAmount
+        sellingPrice: cropDetails.newPrice,
+        buyer: new mongoose.Types.ObjectId(buyer._id),
+        resale: cropDetails.resale,
+        lastStockType: stock.type,
+        lastResale: stock.resale,
+        imageName: stock.imageName,
+        imageMimeType: stock.imageMimeType,
+        initialStock: initialStock
     });
 
     await order.save();
@@ -85,7 +103,7 @@ var buyCrop = async (cropDetails) => {
             'quantity': -1 * parseFloat(cropDetails.quantity)
         }
     };
-    await Crop.updateOne({
+    await Stock.updateOne({
         _id: mongoose.Types.ObjectId(cropDetails.id)
     }, updatables).exec();
 

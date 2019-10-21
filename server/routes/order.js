@@ -7,7 +7,7 @@ var middleware = require('../middleware');
 router.post('/crop', middleware.authorize.all, middleware.authorize.wholesaler, controllers.order.buy.crop);
 
 /* Route to fetch orders */
-router.get('/crop', middleware.authorize.all, middleware.authorize.wholesaler, controllers.order.fetch.list);
+router.get('/', middleware.authorize.all, controllers.order.fetch.list);
 
 /* Route to approve orders */
 router.post('/approve', middleware.authorize.all, middleware.authorize.wholesaler, controllers.order.approve);

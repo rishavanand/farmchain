@@ -8,6 +8,7 @@ var create = async (req, res, next) => {
     try{
 
         let decoded = req.decoded;
+        const user = req.user;
 
         let cropDetails = {
             name: req.body.name,
@@ -16,10 +17,12 @@ var create = async (req, res, next) => {
             grade: req.body.grade,
             variety: req.body.variety,
             ownerMobileNumber: decoded.mobileNumber,
-            _id: decoded._id
+            imageName: req.file.filename,
+            imageMimeType: req.file.mimetype,
+            _id: decoded.id
         };
 
-        await lib.crop.create(cropDetails);
+        await lib.crop.create(user, cropDetails);
 
         return res.json({
             success: true

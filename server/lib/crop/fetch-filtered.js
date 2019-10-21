@@ -3,27 +3,27 @@
 var models = require('../../models');
 
 /* Function to fetch filtered crop list */
-var fetchFiltered = async (cropDetails) => {
+var fetchFiltered = async (stockDetails) => {
 
-    let Crop = models.Crop;
-    let cropName = cropDetails.cropName;
-    let varietyName = cropDetails.varietyName;
-    let gradeName = cropDetails.gradeName;
+    let Stock = models.Stock;
+    let cropName = stockDetails.cropName;
+    let varietyName = stockDetails.varietyName;
+    let gradeName = stockDetails.gradeName;
 
-    var crops = await Crop.find({
-        name: cropName,
-        variety: varietyName,
-        grade: gradeName
-    }, {__v: 0}).populate('owner').exec();
+    var stock = await Stock.find({
+            "type": "crop",
+            "details": {
+                "name": cropName,
+                "grade": gradeName,
+                "variety": varietyName
+            }
+        }).populate({
+            path: 'owner',
+            select: '_id firstName lastName userType address farmCity farmState'
+        })
+        .exec();
 
-    crops = crops.map((crop) => {
-        crop.owner.password = undefined;
-        crop.owner.__v = undefined;
-        crop.owner.otp = undefined;
-        return crop;
-    })
-
-    return crops;
+    return stock;
 
 }
 

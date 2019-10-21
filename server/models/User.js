@@ -47,16 +47,10 @@ var schema = new mongoose.Schema({
     photoMimeType: {
         type: String
     },
-    farmCity: {
+    city: {
         type: String
     },
-    farmState: {
-        type: String
-    },
-    shopCity: {
-        type: String
-    },
-    shopState: {
+    state: {
         type: String
     },
     address: {
