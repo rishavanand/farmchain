@@ -2,7 +2,7 @@
 
 // Load config
 var environment = process.env.NODE_ENV || 'local';
-console.log(`Starting in ${environment}!`)
+
 if (environment == 'local') {
 	global.gConfig = require('./config/config.json');
 } else {
