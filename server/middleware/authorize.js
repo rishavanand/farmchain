@@ -2,7 +2,6 @@
 
 var jwt = require('jsonwebtoken');
 const models = require('../models');
-var config = require('../config/config.json');
 
 /* 1st authorization: Allow any user who is logged in */
 var all = async (req, res, next) => {
@@ -17,7 +16,7 @@ var all = async (req, res, next) => {
                 token = token.slice(7, token.length);
             }
 
-            jwt.verify(token, config.jwtSecret, async (err, decoded) => {
+            jwt.verify(token, global.gConfig.jwtSecret, async (err, decoded) => {
                 if (err) {
                     return next(new Error('Invalid token'));
                 } else {

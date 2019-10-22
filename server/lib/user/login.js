@@ -3,7 +3,6 @@
 var User = require('../../models/User');
 var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
-var config = require('../../config/config.json');
 
 /* Function to check password */
 var checkHashPassword = (plaintextPassword, hash) => {
@@ -41,7 +40,7 @@ var login = async (userDetails) => {
 
     return new Promise((resolve, reject) => {
 
-        const secret = config.jwtSecret;
+        const secret = global.gConfig.jwtSecret;
         
         jwt.sign({
             mobileNumber: user.mobileNumber,
