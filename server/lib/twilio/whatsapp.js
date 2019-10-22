@@ -1,6 +1,7 @@
 'use strict';
 
-const config = require('../../config/config');
+console.log(global.gConfig)
+const config = global.gConfig;
 const twilioSid = config.twilioSid;
 const twilioAuthToken = config.twilioAuthToken;
 const twilioMobileNumber = config.twilioMobileNumber;

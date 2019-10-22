@@ -2,9 +2,9 @@
 
 // Load config
 var environment = process.env.NODE_ENV || 'local';
+console.log(`Starting in ${environment}!`)
 if (environment == 'local') {
-	var config = require('./config/config.json');
-	global.gConfig = config;
+	global.gConfig = require('./config/config.json');
 } else {
 	global.gConfig = {
 		"jwtSecret": process.env.JWT_SECRET,
