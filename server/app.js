@@ -2,8 +2,19 @@
 
 // Load config
 var config = require('./config/config.json');
-//var environment = process.env.NODE_ENV || 'development';
-global.gConfig = config;
+var environment = process.env.NODE_ENV || 'local';
+if (environment == 'local')
+	global.gConfig = config;
+else {
+	global.gConfig = {
+		"jwtSecret": process.env.JWT_SECRET,
+		"twilioMobileNumber": process.env.TWILIO_MOBILE_NUMBER,
+		"twilioSid": process.env.TWILIO_SID,
+		"twilioAuthToken": process.env.TWILIO_AUTH_TOKEN,
+		"mongoUrl": process.env.MONGO_URL,
+		"nodePort": process.env.NODE_PORT
+	};
+}
 
 // Requires
 var debug = require('debug')('farmchain');
