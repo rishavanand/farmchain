@@ -13,7 +13,8 @@ module.exports = {
         variety: require('./fetch-variety'),
         grade: require('./fetch-grade'),
         filtered: require('./fetch-filtered'),
-        category: require('./fetch-category')
+        category: require('./fetch-category'),
+        filter: require('./fetch-filter')
     },
     category: require('./category'),
     remove: require('./remove')

@@ -14,6 +14,9 @@ router.post('/', upload.single("photo"), middleware.authorize.all, middleware.au
 /* Route to get crop categories */
 router.get('/category', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.category);
 
+/* Route to get crop filter */
+router.get('/filter', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.filter);
+
 // /* Route to get all crop details of a user */
 // router.get('/', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.details);
 

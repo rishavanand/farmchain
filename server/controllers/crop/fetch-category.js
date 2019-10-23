@@ -7,7 +7,7 @@ var fetchCategory = async (req, res, next) => {
 
     try {
 
-        let category = await lib.crop.fetch.category();
+        const category = await lib.crop.fetch.category();
 
         return res.json({
             success: true,
