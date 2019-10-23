@@ -1,6 +1,5 @@
 'use strict';
 
-console.log(global.gConfig)
 const config = global.gConfig;
 const twilioSid = config.twilioSid;
 const twilioAuthToken = config.twilioAuthToken;

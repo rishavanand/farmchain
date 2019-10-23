@@ -24,8 +24,9 @@ var schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    details: {
-        type: mongoose.Schema.Types.Mixed
+    cropCategory: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Crop'
     },
     costPrice: {
         type: String,

@@ -10,6 +10,9 @@ var middleware = require('../middleware');
 router.get('/', middleware.authorize.all, controllers.stock.fetchAllUserStock);
 
 /* Route to trackback */
-router.get('/trackback/:stockId', middleware.authorize.all, controllers.stock.trackback);
+router.get('/:stockId/trackback', middleware.authorize.all, controllers.stock.trackback);
+
+/* Route to stock photo */
+router.get('/:stockId/photo', middleware.authorize.all, controllers.stock.fetchPhoto);
 
 module.exports = router;

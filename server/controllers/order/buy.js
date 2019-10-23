@@ -2,28 +2,26 @@
 
 var lib = require('../../lib');
 
-/* Controller to purchase crop */
-var buyCrop = async (req, res, next) => {
+/* Controller to purchase product */
+var buyProduct = async (req, res, next) => {
 
     try {
 
-        let decoded = req.decoded;
-        let cropId = req.body.id;
+        let productId = req.body.id;
         let quantity = req.body.quantity;
         let newPrice = req.body.newPrice;
         let user = req.user;
         const resale = req.body.resale;
 
-        let cropDetails = {
-            mobileNumber: decoded.mobileNumber,
-            id: cropId,
+        let productDetails = {
+            id: productId,
             quantity: quantity,
             newPrice: newPrice,
             buyer: user,
             resale: resale
         };
 
-        await lib.order.buy.crop(cropDetails);
+        await lib.order.buy(productDetails);
 
         return res.json({
             success: true
@@ -35,4 +33,4 @@ var buyCrop = async (req, res, next) => {
 
 }
 
-module.exports = buyCrop;
+module.exports = buyProduct;

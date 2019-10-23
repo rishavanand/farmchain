@@ -14,5 +14,6 @@ module.exports = {
         grade: require('./fetch-grade'),
         filtered: require('./fetch-filtered')
     },
+    category: require('./category'),
     remove: require('./remove')
 };

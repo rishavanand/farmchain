@@ -13,14 +13,6 @@ var schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    quantity: {
-        type: Number,
-        required: true
-    },
-    price: {
-        type: String,
-        required: true
-    },
     variety: {
         type: String,
         required: true
@@ -28,27 +20,7 @@ var schema = new mongoose.Schema({
     grade: {
         type: String,
         required: true
-    },
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    dateAdded: {
-        type: Date,
-        required: true,
-        default: new Date()
-    },
-    photoPath: {
-        type: String
-    },
-    photoName: {
-        type: String
-    },
-    photoMimeType: {
-        type: String
     }
-
 });
 
 var Crop = mongoose.model('Crop', schema);

@@ -14,6 +14,11 @@ var schema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+    seller: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     stock: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Stock',

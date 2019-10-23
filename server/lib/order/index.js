@@ -1,9 +1,7 @@
 'use strict';
 
 module.exports = {
-    buy: {
-        crop: require('./buy-crop')
-    },
+    buy: require('./buy'),
     fetch: {
         list: require('./fetch-list')
     },

@@ -23,7 +23,9 @@ var fetchDetails = async (stock) => {
 
         res = await Stock.find({
                 type: 'crop'
-            }).populate({
+            })
+            .populate('cropCategory')
+            .populate({
                 path: 'owner',
                 select: '_id firstName lastName userType address farmCity farmState'
             })

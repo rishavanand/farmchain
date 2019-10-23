@@ -14,10 +14,15 @@ var fetchList = async (user) => {
             __v: 0
         }).populate({
             path: 'stock',
-            populate: {
-                path: 'owner',
-                select: '_id firstName lastName userType address city state'
-            }
+            populate: [
+                {
+                    path: 'owner',
+                    select: '_id firstName lastName userType address city state'
+                },
+                {
+                    path: 'cropCategory'
+                }
+            ]
         })
         .exec()
 
