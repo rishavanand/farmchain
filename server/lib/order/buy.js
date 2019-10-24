@@ -51,7 +51,11 @@ const reduceBalance = async (cropId, buyerId, quantity) => {
     // Reduce balance
     await User.updateOne({
         _id: mongoose.Types.ObjectId(buyerId)
-    }, {$inc: {'walletBalance': -1 * totalAmount}}).exec();
+    }, {
+        $inc: {
+            'walletBalance': -1 * totalAmount
+        }
+    }).exec();
 
     return totalAmount;
 
@@ -64,44 +68,53 @@ const checkProfileStatus = async (user) => {
         _id: new mongoose.Types.ObjectId(user.id)
     }).exec();
 
-    if(!userSearchResult.address || !userSearchResult.city || !userSearchResult.state || !userSearchResult.firstName || !userSearchResult.lastName)
+    if (!userSearchResult.address || !userSearchResult.city || !userSearchResult.state || !userSearchResult.firstName || !userSearchResult.lastName)
         throw new Error('Profile not completed.');
 
 }
 
-const checkPurchasable = (buyer, product) => {
+/* Check if user is allowed to purchase particular stock type */
+const checkStockTypePurchase = (user, stock) => {
 
-    const buyerUserType = buyer.userType;
-    const productType = product.type;
+    const userType = user.userType;
+    const stockType = stock.type;
+    let status = false;
 
-    if(buyerUserType == 'wholesaler' && productType == 'crop')
-        return;
-    else
-        throw new Error('Product purchase not allowed');
+    if (userType === 'wholesaler' && stockType === 'crop')
+        status = true;
+    else if (userType === 'retailer' && (stockType === 'wholesaler-product' || stockType === 'retailer-product'))
+        status = true;
+    else if(userType === 'consumer' && stockType === 'retailer-product')
+        status = true;
+
+    if(!status)
+        throw new Error('Purchase of particular product not allowed.');
 
 }
 
 /* Function for wholesalers to buy products */
-var buyCrop = async (productDetails) => {
+var buy = async (productDetails) => {
 
     const buyer = productDetails.buyer;
+
+    // Check if profile is completed
     await checkProfileStatus(buyer);
 
     // Check stock
     const stock = await checkStock(productDetails.id, productDetails.quantity);
 
-    // Check if product is purchasable by user
-    await checkPurchasable(buyer, stock);
+    // Check if user is allowed to purchase stock type
+    checkStockTypePurchase(buyer, stock);
 
     // Check and reduce balance
     await reduceBalance(productDetails.id, buyer._id, productDetails.quantity);
 
     let initialStock = null;
-    if(stock.initialStock)
-        initialStock = new mongoose.Types.ObjectId(order.initialStock)
+    if (stock.initialStock)
+        initialStock = new mongoose.Types.ObjectId(stock.initialStock)
     else
         initialStock = new mongoose.Types.ObjectId(productDetails.id)
-
+    
     // Create order
     let order = new Order({
         stock: new mongoose.Types.ObjectId(productDetails.id),
@@ -132,4 +145,4 @@ var buyCrop = async (productDetails) => {
 
 }
 
-module.exports = buyCrop;
+module.exports = buy;

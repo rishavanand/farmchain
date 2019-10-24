@@ -7,22 +7,19 @@ var buyProduct = async (req, res, next) => {
 
     try {
 
-        let productId = req.body.id;
-        let quantity = req.body.quantity;
-        let newPrice = req.body.newPrice;
-        let user = req.user;
-        const resale = req.body.resale;
+        const user = req.user;
+        const userType = user.userType;
 
         let productDetails = {
-            id: productId,
-            quantity: quantity,
-            newPrice: newPrice,
+            id: req.body.id,
+            quantity: req.body.quantity,
+            newPrice: req.body.newPrice,
             buyer: user,
-            resale: resale
+            resale: req.body.resale
         };
 
         await lib.order.buy(productDetails);
-
+    
         return res.json({
             success: true
         });

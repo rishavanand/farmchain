@@ -24,6 +24,11 @@ var schema = new mongoose.Schema({
         ref: 'Stock',
         required: true
     },
+    cropCategory: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Crop',
+        required: true
+    },
     initialStock: {
         type: mongoose.Schema.Types.ObjectId
     },

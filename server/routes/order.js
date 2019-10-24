@@ -10,6 +10,6 @@ router.post('/', middleware.authorize.all, controllers.order.buy);
 router.get('/', middleware.authorize.all, controllers.order.fetch.list);
 
 /* Route to approve orders */
-router.post('/approve', middleware.authorize.all, middleware.authorize.wholesaler, controllers.order.approve);
+router.post('/approve', middleware.authorize.all, controllers.order.approve);
 
 module.exports = router;

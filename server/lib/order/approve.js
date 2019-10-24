@@ -43,26 +43,31 @@ var approve = async (user, orderDetails) => {
         const lastStockId = order.stock;
         const lastStockImageName = order.imageName;
         const lastImageMimeType = order.imageMimeType;
+        const cropCategory = order.cropCategory;
+        let newStockType = null;
 
-        if(order.lastStockType == 'crop'){
-            // When stock bought is a crop
-
-            const newStockType = 'wholesaler-product';
-            let newStock = new Stock({
-                lastStock: lastStockId,
-                type: newStockType,
-                quantity: newStockQuantity,
-                sellingPrice: newStockSellingPrice,
-                owner: new mongoose.Types.ObjectId(user.id),
-                imageName: lastStockImageName,
-                imageMimeType: lastImageMimeType,
-                resale: order.resale,
-                initialStock: order.initialStock
-            });
-        
-            await newStock.save();
-            
+        if(user.userType === 'wholesaler'){
+            newStockType = 'wholesaler-product';
+        }else if(user.userType === 'retailer'){
+            newStockType = 'retailer-product';
+        }else if(user.userType === 'consumer'){
+            newStockType = 'consumer-good';
         }
+        
+        let newStock = new Stock({
+            lastStock: lastStockId,
+            type: newStockType,
+            quantity: newStockQuantity,
+            sellingPrice: newStockSellingPrice,
+            owner: new mongoose.Types.ObjectId(user.id),
+            imageName: lastStockImageName,
+            imageMimeType: lastImageMimeType,
+            resale: order.resale,
+            initialStock: order.initialStock,
+            cropCategory: cropCategory
+        });
+    
+        await newStock.save();
     }
 
     // Change order status

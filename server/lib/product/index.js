@@ -6,16 +6,26 @@ const stock = require('../stock');
 const cropCategory = require('../crop/category');
 
 const fetchAll = async (user, filter) => {
-    
+
     const userType = user.userType;
 
-    if(userType == 'wholesaler'){
+    if (userType === 'wholesaler') {
         const category = await cropCategory.getCropCategoryFromFilter(filter);
         const products = await stock.fetch.allCrops(category);
         return products;
+    } else if (userType === 'retailer') {
+        const products = await stock.fetch.allOthers([
+            'wholesaler-product',
+            'retailer-product'
+        ]);
+        return products;
+    } else if (userType === 'consumer') {
+        const products = await stock.fetch.allOthers(['retailer-product']);
+        return products;
+    }else {
+        return [];
     }
-
-    return userType;
+    
 }
 
 const fetchPhoto = async (productId) => {

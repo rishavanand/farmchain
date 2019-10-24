@@ -15,8 +15,7 @@ const fetchAllUserStock = async (user) => {
                 path: 'cropCategory'
             }
         })
-        // .populate('initialStock')
-        // .populate('cropCategory')
+        .populate('cropCategory')
         .exec();
 
     return stock;
@@ -59,6 +58,25 @@ const fetchAllCrops = async (categories) => {
         return stock;
     }
 
+}
+
+const fetchAllOthers = async (types) => {
+
+    const stock = await Stock.find({
+            type: {
+                '$in': types
+            },
+            resale: true
+        })
+        .populate('initialStock')
+        .populate('cropCategory')
+        .populate({
+            path: 'owner',
+            select: '_id firstName lastName userType address city state'
+        })
+        .exec();
+
+    return stock;
 
 }
 
@@ -121,6 +139,7 @@ module.exports = {
     fetch: {
         all: fetchAllUserStock,
         allCrops: fetchAllCrops,
+        allOthers: fetchAllOthers,
         photo: fetchPhoto
     },
     trackback: trackback
