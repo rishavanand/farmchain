@@ -9,8 +9,14 @@ const fetchAllUserStock = async (user) => {
     const stock = await Stock.find({
             owner: user.id
         })
-        .populate('initialStock')
-        .populate('cropCategory')
+        .populate({
+            path: 'initialStock',
+            populate: {
+                path: 'cropCategory'
+            }
+        })
+        // .populate('initialStock')
+        // .populate('cropCategory')
         .exec();
 
     return stock;
