@@ -12,11 +12,7 @@ var fetchGrades = async (filters) => {
     let grades = await Crop.find({
         name: name.toLowerCase(),
         variety: variety.toLowerCase()
-    }, {
-        grade: 1
-    });
-
-    grades = grades.map(grade => grade.grade);
+    }).distinct('grade');
 
     return grades;
 
@@ -29,16 +25,20 @@ const fetchVarieties = async (filters) => {
     
     let varieties = await Crop.find({
         name: name.toLowerCase()
-    }, {
-        variety: 1
-    });
-
-    varieties = varieties.map(variety => variety.variety);
+    }).distinct('variety');
 
     return varieties;
 }
 
+/* Function to fetch crop names */
+const fetchNames = async () => {
+    
+    let names = await Crop.find().distinct('name');
+    return names;
+}
+
 module.exports = {
     grades: fetchGrades,
-    varieties: fetchVarieties
+    varieties: fetchVarieties,
+    names: fetchNames
 };

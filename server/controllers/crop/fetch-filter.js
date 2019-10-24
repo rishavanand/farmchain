@@ -28,7 +28,13 @@ var fetchCategory = async (req, res, next) => {
                 }
             });
         }else{
-            throw new Error('Insufficient filter data');
+            const names = await lib.crop.fetch.filter.names();
+            return res.json({
+                success: true,
+                payload: {
+                    names: names
+                }
+            });
         }
 
     } catch (err) {
