@@ -9,7 +9,14 @@ var fetchList = async (user) => {
     let Order = models.Order;
 
     var orders = await Order.find({
-            buyer: mongoose.Types.ObjectId(user._id)
+            '$or': [
+                {
+                    buyer: mongoose.Types.ObjectId(user._id)
+                },
+                {
+                    seller: mongoose.Types.ObjectId(user._id)
+                }
+            ]
         }, {
             __v: 0
         }).populate({
@@ -23,6 +30,15 @@ var fetchList = async (user) => {
                     path: 'cropCategory'
                 }
             ]
+        })
+        .populate('cropCategory')
+        .populate({
+            path: 'buyer',
+            select: '_id firstName lastName address city state'
+        })
+        .populate({
+            path: 'seller',
+            select: '_id firstName lastName address city state'
         })
         .exec()
 

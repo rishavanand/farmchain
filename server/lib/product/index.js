@@ -8,7 +8,7 @@ const cropCategory = require('../crop/category');
 const fetchAll = async (user, filter) => {
 
     const userType = user.userType;
-
+    
     if (userType === 'wholesaler') {
         const category = await cropCategory.getCropCategoryFromFilter(filter);
         const products = await stock.fetch.allCrops(category);
