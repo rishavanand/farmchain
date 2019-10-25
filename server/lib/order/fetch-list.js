@@ -34,11 +34,11 @@ var fetchList = async (user) => {
         .populate('cropCategory')
         .populate({
             path: 'buyer',
-            select: '_id firstName lastName address city state'
+            select: '_id firstName lastName address city state userType'
         })
         .populate({
             path: 'seller',
-            select: '_id firstName lastName address city state'
+            select: '_id firstName lastName address city state userType'
         })
         .exec()
 
