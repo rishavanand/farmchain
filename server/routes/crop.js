@@ -12,10 +12,10 @@ const upload = multer({
 router.post('/', upload.single("photo"), middleware.authorize.all, middleware.authorize.farmer, controllers.crop.create);
 
 /* Route to get crop categories */
-router.get('/category', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.category);
+router.get('/category', middleware.authorize.all, controllers.crop.fetch.category);
 
 /* Route to get crop filter */
-router.get('/filter', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.filter);
+router.get('/filter', middleware.authorize.all, controllers.crop.fetch.filter);
 
 // /* Route to get all crop details of a user */
 // router.get('/', middleware.authorize.all, middleware.authorize.wholesaler, controllers.crop.fetch.details);
