@@ -9,18 +9,19 @@ const fetchAll = async (user, filter) => {
 
     const userType = user.userType;
     
+    const category = await cropCategory.getCropCategoryFromFilter(filter);
+    
     if (userType === 'wholesaler') {
-        const category = await cropCategory.getCropCategoryFromFilter(filter);
         const products = await stock.fetch.allCrops(category);
         return products;
     } else if (userType === 'retailer') {
         const products = await stock.fetch.allOthers([
             'wholesaler-product',
             'retailer-product'
-        ]);
+        ], category);
         return products;
     } else if (userType === 'consumer') {
-        const products = await stock.fetch.allOthers(['retailer-product']);
+        const products = await stock.fetch.allOthers(['retailer-product'], category);
         return products;
     }else {
         return [];

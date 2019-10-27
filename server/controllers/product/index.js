@@ -13,12 +13,13 @@ const fetchAll = async (req, res, next) => {
             grade: req.query.grade
         };
         
-        const product = await lib.product.fetch.all(user, filter);
-
+        const products = await lib.product.fetch.all(user, filter);
+        const filteredProducts = products.filter(product => product.owner._id != user.id);
+ 
         return res.json({
             success: true,
             payload: {
-                product: product
+                product: filteredProducts
             }
         });
 

@@ -5,9 +5,12 @@ const Stock = models.Stock;
 const mongoose = require('mongoose');
 
 const fetchAllUserStock = async (user) => {
-
+    
     const stock = await Stock.find({
-            owner: user.id
+            owner: user.id,
+            quantity: {
+                $gt: 0
+            }
         })
         .populate({
             path: 'initialStock',
@@ -26,13 +29,16 @@ const fetchAllCrops = async (categories) => {
 
     // Extract category ids
     const categoryIds = categories.map(category => new mongoose.Types.ObjectId(category._id));
-
+    
     if (categoryIds.length) {
         // When category ids are present
         const stock = await Stock.find({
                 type: 'crop',
                 cropCategory: {
-                    "$in": categoryIds
+                    $in: categoryIds
+                },
+                quantity: {
+                    $gt: 0
                 }
             })
             .populate('cropCategory')
@@ -45,28 +51,41 @@ const fetchAllCrops = async (categories) => {
         return stock;
     } else {
         // When category ids are absent
-        const stock = await Stock.find({
-                type: 'crop'
-            })
-            .populate('cropCategory')
-            .populate({
-                path: 'owner',
-                select: '_id firstName lastName userType address city state'
-            })
-            .exec();
+        // const stock = await Stock.find({
+        //         type: 'crop',
+        //         quantity: {
+        //             $gt: 0
+        //         }
+        //     })
+        //     .populate('cropCategory')
+        //     .populate({
+        //         path: 'owner',
+        //         select: '_id firstName lastName userType address city state'
+        //     })
+        //     .exec();
 
-        return stock;
+        // return stock;
+        return [];
     }
 
 }
 
-const fetchAllOthers = async (types) => {
+const fetchAllOthers = async (types, categories) => {
 
+    // Extract category ids
+    const categoryIds = categories.map(category => new mongoose.Types.ObjectId(category._id));
+    
     const stock = await Stock.find({
             type: {
                 '$in': types
             },
-            resale: true
+            resale: true,
+            cropCategory: {
+                $in: categoryIds
+            },
+            quantity: {
+                $gt: 0
+            }
         })
         .populate('initialStock')
         .populate('cropCategory')
