@@ -5,8 +5,7 @@ var home = (req, res, next) => {
     try {
 
         return res.json({
-            success: true,
-            message: 'API server is hot and running'
+            success: true
         });
 
     } catch (err) {

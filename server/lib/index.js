@@ -8,5 +8,6 @@ module.exports = {
     product: require('./product'),
     order: require('./order'),
     stock: require('./stock'),
-    clear: require('./clear')
+    clear: require('./clear'),
+    blockchain: require('./blockchain')
 }

@@ -8,5 +8,6 @@ router.use('/product', require('./product'));
 router.use('/order', require('./order'));
 router.use('/stock', require('./stock'));
 router.use('/clear', require('./clear'));
+router.use('/blockchain', require('./blockchain'));
 
 module.exports = router;
