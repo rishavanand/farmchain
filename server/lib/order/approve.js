@@ -14,9 +14,11 @@ const getUser = async (id) => {
         lastName: 1,
         city: 1,
         state: 1,
-        address: 1
+        address: 1,
+        userType: 1
+
     }).exec();
-    console.log(user)
+    
     if(!user)
         throw new Error('User not found');
 
