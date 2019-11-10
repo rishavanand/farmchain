@@ -15,7 +15,9 @@ var updateProfile = async (req, res, next) => {
             lastName: req.body.lastName,
             city: req.body.city,
             state: req.body.state,
-            address: req.body.address
+            address: req.body.address,
+            longitude: req.body.longitude,
+            latitude: req.body.latitude
         };
 
         await lib.user.update.profile(userDetails);

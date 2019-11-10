@@ -68,6 +68,8 @@ const checkProfileStatus = async (user) => {
         _id: new mongoose.Types.ObjectId(user.id)
     }).exec();
 
+    // TODO: add longi lati check - || !userSearchResult.longitude || !userSearchResult.latitude
+
     if (!userSearchResult.address || !userSearchResult.city || !userSearchResult.state || !userSearchResult.firstName || !userSearchResult.lastName)
         throw new Error('Profile not completed.');
 

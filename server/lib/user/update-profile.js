@@ -12,7 +12,9 @@ var updateProfile = async (userDetails) => {
         lastName: userDetails.lastName,
         city: userDetails.city,
         state: userDetails.state,
-        address: userDetails.address
+        address: userDetails.address,
+        longitude: userDetails.longitude,
+        latitude: userDetails.latitude
     };
 
     let keys = Object.keys(updatables);
