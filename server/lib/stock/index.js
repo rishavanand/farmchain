@@ -2,10 +2,11 @@
 
 const models = require('../../models');
 const Stock = models.Stock;
+const blockchain = require('../blockchain');
 const mongoose = require('mongoose');
 
 const fetchAllUserStock = async (user) => {
-    
+
     const stock = await Stock.find({
             owner: user.id,
             quantity: {
@@ -29,7 +30,7 @@ const fetchAllCrops = async (categories) => {
 
     // Extract category ids
     const categoryIds = categories.map(category => new mongoose.Types.ObjectId(category._id));
-    
+
     if (categoryIds.length) {
         // When category ids are present
         const stock = await Stock.find({
@@ -74,7 +75,7 @@ const fetchAllOthers = async (types, categories) => {
 
     // Extract category ids
     const categoryIds = categories.map(category => new mongoose.Types.ObjectId(category._id));
-    
+
     const stock = await Stock.find({
             type: {
                 '$in': types
@@ -105,41 +106,68 @@ const trackback = async (stockId, user) => {
             owner: user.id,
             _id: stockId
         })
-        .populate({
-            path: 'owner',
-            select: '_id firstName lastName userType address city state'
-        })
+        // .populate({
+        //     path: 'owner',
+        //     select: '_id firstName lastName userType address city state'
+        // })
         .exec();
 
-    if (!stock)
-        throw new Error('Stock not found');
+    const transactions = await getTransactions(stock.trackingId);
 
-    const stocks = [stock];
+    // if (!stock)
+    //     throw new Error('Stock not found');
 
-    while (true) {
-        if (!stock.lastStock || stock.lastStock == stock._id)
-            break;
-        stock = await getStock(stock.lastStock);
-        stocks.push(stock);
+    // const stocks = [stock];
+
+    // while (true) {
+    //     if (!stock.lastStock || stock.lastStock == stock._id)
+    //         break;
+    //     stock = await getStock(stock.lastStock);
+    //     stocks.push(stock);
+    // }
+
+    //return stocks;
+
+    return transactions;
+
+}
+
+const getTransactions = async (trackingId) => {
+    
+    const blocks = await blockchain.getChain();
+
+    let transactions = blocks.map(block => block.transactions);
+    transactions = transactions.filter(trans => trans.length)
+    transactions = [].concat.apply([], transactions);
+    console.log(transactions)
+
+    const filteredTransactions = [];
+    let currentTrackingId = trackingId;
+    
+    for(let i = transactions.length - 1; i >= 0; i -= 1){
+        if(transactions[i].type === 'resale' && transactions[i].trackingId === currentTrackingId){
+            filteredTransactions.push(transactions[i]);
+            currentTrackingId = transactions[i].lastTrackingId;
+        }
     }
 
-    return stocks;
+    return filteredTransactions;
 
 }
 
-const getStock = async (stockId) => {
+// const getStock = async (stockId) => {
 
-    const stock = await Stock.findOne({
-            _id: stockId
-        })
-        .populate({
-            path: 'owner',
-            select: '_id firstName lastName userType address city state'
-        })
-        .exec();
-    return stock;
+//     const stock = await Stock.findOne({
+//             _id: stockId
+//         })
+//         .populate({
+//             path: 'owner',
+//             select: '_id firstName lastName userType address city state'
+//         })
+//         .exec();
+//     return stock;
 
-}
+// }
 
 const fetchPhoto = async (user, stockId) => {
     const stock = await Stock.findOne({

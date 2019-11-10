@@ -1,6 +1,7 @@
 'use strict';
 
 var models = require('../models');
+const blockchain = require('./blockchain');
 
 var remove = async () => {
 
@@ -8,6 +9,7 @@ var remove = async () => {
     let Order = models.Order;
     let Crop = models.Crop;
 
+    await blockchain.reset();
     await Stock.find().remove()
         .exec();
     await Order.find().remove()

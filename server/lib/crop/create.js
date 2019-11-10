@@ -3,6 +3,7 @@
 const models = require('../../models');
 const mongoose = require('mongoose');
 const cropCategoty = require('../crop/category');
+const randomatic = require('randomatic');
 const Stock = models.Stock;
 const User = models.User;
 
@@ -31,14 +32,17 @@ const create = async (user, cropDetails) => {
     });
     
     // Create stock
-    let stock = new Stock({
+    const trackingId = randomatic('Aa0', 10);
+    const stock = new Stock({
         type: 'crop',
         cropCategory: new mongoose.Types.ObjectId(category._id),
         quantity: cropDetails.quantity,
         sellingPrice: cropDetails.price,
         owner: new mongoose.Types.ObjectId(user.id),
         imageName: cropDetails.imageName,
-        imageMimeType: cropDetails.imageMimeType
+        imageMimeType: cropDetails.imageMimeType,
+        trackingId: trackingId,
+        lastTrackingId: null
     });
     await stock.save();
 

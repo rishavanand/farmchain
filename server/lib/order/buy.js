@@ -128,7 +128,8 @@ var buy = async (productDetails) => {
         lastResale: stock.resale,
         imageName: stock.imageName,
         imageMimeType: stock.imageMimeType,
-        initialStock: initialStock
+        initialStock: initialStock,
+        trackingId: stock.trackingId
     });
 
     await order.save();

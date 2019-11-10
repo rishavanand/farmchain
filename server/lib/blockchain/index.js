@@ -28,22 +28,29 @@ class Blockchain {
         if (chain.length === 0) {
             // When no blocks available
             console.log('Creating fresh chain');
-            await this.newBlock();
+            await this.newBlock(true);
         }
     }
 
     // Get all blocks
     async getChain () {
         let chain = await Block.find().exec();
-        chain = chain.map(block => block.blockList);
+        chain = chain.map(block => block.data);
         this.chain = chain;
         return chain;
     }
 
-    // Create new block
-    async newBlock () {
+    // Reset blockchain
+    async reset () {
+        await Block.deleteMany().exec();
+        await this.init();
+        this.currentTransactions = [];
+    }
 
-        if(this.currentTransactions.length === 0)
+    // Create new block
+    async newBlock (genesis) {
+
+        if (this.currentTransactions.length === 0 && genesis !== true)
             return;
 
         // Calculate previous hash
@@ -63,7 +70,7 @@ class Blockchain {
 
         // Add to block
         const newBlock = new Block({
-            blockList: block
+            data: block
         });
         await newBlock.save();
 
@@ -72,4 +79,13 @@ class Blockchain {
     }
 }
 
-module.exports = Blockchain;
+const blockchain = new Blockchain();
+blockchain.init()
+    .catch(console.log)
+    .then(() => {
+        setInterval(async () => {
+            await blockchain.newBlock();
+        }, 15000);
+    })
+
+module.exports = blockchain;

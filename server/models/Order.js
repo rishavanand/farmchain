@@ -68,6 +68,10 @@ var schema = new mongoose.Schema({
     imageMimeType: {
         type: String,
         required: true
+    },
+    trackingId: {
+        type: String,
+        required: true
     }
 });
 

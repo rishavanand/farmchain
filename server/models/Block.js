@@ -9,7 +9,7 @@ mongoose.set('useCreateIndex', true);
 mongoose.connect(mongoUrl);
 
 var schema = new mongoose.Schema({
-    blockList: {
+    data: {
         type: mongoose.SchemaTypes.Mixed,
         required: true
     }

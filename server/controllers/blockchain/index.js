@@ -1,15 +1,7 @@
 'use strict';
 
 const lib = require('../../lib');
-const Blockchain = lib.blockchain;
-const blockchain = new Blockchain();
-blockchain.init()
-    .catch(console.log)
-    .then(() => {
-        setInterval(async () => {
-            await blockchain.newBlock();
-        }, 15000);
-    })
+const blockchain = lib.blockchain;
 
 // Get all blocks
 const getBlocks = async (req, res, next) => {
@@ -51,8 +43,21 @@ const mine = async (req, res, next) => {
     }
 }
 
+// Reset blockchain
+const reset = async (req, res, next) => {
+    try{
+        await blockchain.reset();
+        return res.json({
+            success: true
+        })
+    }catch(err){
+        return next(err);
+    }
+}
+
 module.exports = {
     getBlocks: getBlocks,
     addTransaction: addTransaction,
-    mine: mine
+    mine: mine,
+    reset: reset
 };
