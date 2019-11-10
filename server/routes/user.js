@@ -41,4 +41,7 @@ router.post('/update/photo', upload.single("file"), middleware.authorize.all, co
 /* Router for fetching user profile photo */
 router.get('/photo', middleware.authorize.all, controllers.user.fetch.photo);
 
+/* Router for fetching user review */
+router.get('/:userId/review', middleware.authorize.all, controllers.user.review);
+
 module.exports = router;

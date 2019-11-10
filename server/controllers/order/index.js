@@ -5,5 +5,6 @@ module.exports = {
     fetch: {
         list: require('./fetch-list')
     },
-    approve: require('./approve')
+    approve: require('./approve'),
+    review: require('./review')
 };

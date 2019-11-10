@@ -139,7 +139,6 @@ const getTransactions = async (trackingId) => {
     let transactions = blocks.map(block => block.transactions);
     transactions = transactions.filter(trans => trans.length)
     transactions = [].concat.apply([], transactions);
-    console.log(transactions)
 
     const filteredTransactions = [];
     let currentTrackingId = trackingId;

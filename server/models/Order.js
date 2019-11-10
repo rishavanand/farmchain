@@ -72,6 +72,10 @@ var schema = new mongoose.Schema({
     trackingId: {
         type: String,
         required: true
+    },
+    review: {
+        type: Boolean,
+        default: false
     }
 });
 

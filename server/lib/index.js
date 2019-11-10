@@ -9,5 +9,6 @@ module.exports = {
     order: require('./order'),
     stock: require('./stock'),
     clear: require('./clear'),
-    blockchain: require('./blockchain')
+    blockchain: require('./blockchain'),
+    review: require('./review')
 }

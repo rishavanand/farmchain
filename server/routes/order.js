@@ -12,4 +12,7 @@ router.get('/', middleware.authorize.all, controllers.order.fetch.list);
 /* Route to approve orders */
 router.post('/approve', middleware.authorize.all, controllers.order.approve);
 
+/* Route to add review */
+router.post('/review', middleware.authorize.all, controllers.order.review.add);
+
 module.exports = router;

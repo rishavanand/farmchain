@@ -132,7 +132,7 @@ const approve = async (user, orderDetails) => {
     }).exec()
 
     // Add transaction to blockchain
-    const buyer = user;
+    const buyer = await getUser(user.id);
     const seller = await getUser(order.seller);
     const trackingId = order.trackingId;
     const stock = await getStock(order.stock);
