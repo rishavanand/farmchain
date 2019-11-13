@@ -80,13 +80,21 @@ class Blockchain {
         // Get POW
         const nonce = await this.proofOfWork(previousHash, currentTransactionHash);
 
+        // Get transaction fees
+        let totalTransactionFees = 0;
+        this.currentTransactions.map((trans) => { 
+            if(trans.transactionFee)
+                totalTransactionFees += trans.transactionFee;
+        });
+
         // Define block contents
         const block = {
             index: chain.length,
             timestamp: Date.now(),
             transactions: this.currentTransactions,
             previousHash: previousHash,
-            nonce: nonce
+            nonce: nonce,
+            miningReward: totalTransactionFees
         };
 
         // Add to block

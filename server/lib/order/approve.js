@@ -150,6 +150,7 @@ const approve = async (user, orderDetails) => {
         seller: seller,
         trackingId: newTrackingId,
         lastTrackingId: trackingId,
+        transactionFee: 0.05 * order.quantity * order.sellingPrice,
         timestamp: new Date()
     });
 
