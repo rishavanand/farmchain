@@ -47,6 +47,22 @@ class Blockchain {
         this.currentTransactions = [];
     }
 
+    // Find POW
+    proofOfWork (lastBlockHash, currentTransactionHash){
+        return new Promise((resolve, reject) => {
+            let proof = 0;
+            while (!this.isValidProof(lastBlockHash, currentTransactionHash, proof))
+                proof += 1;
+            return resolve(proof);        
+        });
+    }
+
+    // Check if proof is valid
+    isValidProof (lastBlockHash, currentTransactionHash, proof){
+        let hash = CryptoJs.SHA256(`${lastBlockHash}${currentTransactionHash}${proof}`).toString(CryptoJs.enc.Hex);
+        return hash.substr(0, 4) == "0000";
+    }
+
     // Create new block
     async newBlock (genesis) {
 
@@ -59,13 +75,18 @@ class Blockchain {
         let previousHash = null;
         if (chain.length > 0)
             previousHash = CryptoJs.SHA256(JSON.stringify(lastBlock)).toString(CryptoJs.enc.Hex);
+        const currentTransactionHash = CryptoJs.SHA256(this.currentTransactions).toString(CryptoJs.enc.Hex);
+
+        // Get POW
+        const nonce = await this.proofOfWork(previousHash, currentTransactionHash);
 
         // Define block contents
         const block = {
             index: chain.length,
             timestamp: Date.now(),
             transactions: this.currentTransactions,
-            previousHash: previousHash
+            previousHash: previousHash,
+            nonce: nonce
         };
 
         // Add to block
