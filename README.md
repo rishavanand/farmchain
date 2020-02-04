@@ -6,7 +6,7 @@
 
 It is a **Farmer-Retailer-Consumer app** with **Blockchain** based crop tracing system. These API can be used for interacting with Farmchain's backend system. Currently APIs are  being developed for the purpose of being used with mobile apps.
 
-It is being developed using **Node JS** and **MongoDB**.
+It is being developed using **Node JS** and **MongoDB**(for block storage).
 
 
 ## Documentations
